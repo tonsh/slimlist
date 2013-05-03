@@ -74,7 +74,6 @@ class Field(object):
         self.type = field_type
         self.title = title
         self.help = field_help
-        #self.value = None
 
     def value(self, value):
         _parse = {
