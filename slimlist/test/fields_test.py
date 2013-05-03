@@ -117,7 +117,9 @@ class FieldsTest(unittest.TestCase):
     def test_tolist(self):
         data = {}
         values = self.field_obj.to_list(data)
-        self.assertEqual(values, [None, None, False, None, None, None])
+        self.assertEqual(values, ['demo',
+                                  datetime.datetime(2013, 5, 3, 15, 22, 46),
+                                  False, 0.00, 0, None])
 
         data = {
             'field_1': 'tonsh', 'field_2': '2010-09-01', 'field_3': 'y',
@@ -126,6 +128,12 @@ class FieldsTest(unittest.TestCase):
         }
         values = self.field_obj.to_list(data)
         self.assertEqual(values, [
-                                    'tonsh', datatime.datetime(2010, 9, 1),
-                                    True, 130.0, 73, 'anything',
+                                    'tonsh', datetime.datetime(2010, 9, 1),
+                                    True, 130.6, 73, 'anything',
+                                ])
+        results = []
+        self.field_obj.to_list(data, callback=results.append)
+        self.assertEqual(results, [
+                                    [ 'tonsh', datetime.datetime(2010, 9, 1),
+                                    True, 130.6, 73, 'anything',]
                                 ])

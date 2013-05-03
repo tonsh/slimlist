@@ -51,7 +51,7 @@ class Fields(object):
 
         return titles
 
-    def to_list(self, data=None):
+    def to_list(self, data=None, callback=None):
         values = []
         if not isinstance(data, dict):
             return values
@@ -59,7 +59,10 @@ class Fields(object):
         for name in self._order:
             option_obj = self._fields[name]
             value = data.get(option_obj.name)
-            values.append(option_obj.parse(value))
+            values.append(option_obj.value(value))
+
+        if callback is not None:
+            callback(values)
 
         return values
 
@@ -137,6 +140,9 @@ class Field(object):
     def _parse_date(self, value):
         if value is None:
             return None
+
+        if isinstance(value, datetime.datetime):
+            return value
 
         for fmt in self._DATETIME_FORMATS:
             try:
