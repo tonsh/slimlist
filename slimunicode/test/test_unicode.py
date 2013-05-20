@@ -20,7 +20,7 @@ class TestSlimUnicode(unittest.TestCase):
         self.assertEqual(SlimUnicode.unicode(u"您好2013"), u"您好2013")
 
         # unicode with non-byte string
-        self.assertRaises(AttributeError, SlimUnicode.unicode, [u"您好2013"])
+        self.assertRaises(AssertionError, SlimUnicode.unicode, [u"您好2013"])
 
     def test_is_number(self):
         # unicode string number is number

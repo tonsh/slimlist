@@ -15,7 +15,7 @@ class SlimUnicode(object):
         if isinstance(value, unicode_types):
             return value
 
-        assert(value, bytes)
+        assert isinstance(value, bytes)
         return value.decode("utf-8", "ignore")
 
     @classmethod
